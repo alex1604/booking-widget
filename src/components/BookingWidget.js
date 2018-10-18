@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import fetch from 'isomorphic-fetch'
+import './Widget.css'
 
 //import { Modal , Button } from 'semantic-ui-react'
 
@@ -8,6 +9,7 @@ class Widget extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        textSearch: false,
       // TO DO
     }
   }
@@ -16,9 +18,46 @@ class Widget extends Component {
   }
   render() {
       // TO DO
+    const selectTemplate = (options) => { 
+        return (<select
+          className="ui dropdown"
+          label='Category'
+          placeholder="category"
+          onChange={this.changeLocation}
+          style={{height: '50px', width: '90%'}}
+        >
+          {options.map(op => <option key={op.key} value={op.value}>{op.text}</option>)}
+        </select>)
+    }
+        
+    const whereToGo = !this.state.textSearch ? (
+        selectTemplate(this.props.destinations)
+    ) : (
+        null
+    )
+    const accomodation = !this.state.textSearch ? (
+        selectTemplate(this.props.accomodations)
+    ) : (
+        null
+    )
+    const checkInCheckOut = !this.state.textSearch ? (
+        <div>
+        <input type='date'/>
+        <input type='date'/>
+        </div>
+    ) : (
+        null
+    )
     return (
       <main>
-        
+        <div id='tabBox'>
+            {whereToGo}
+            {accomodation}
+            {checkInCheckOut}
+            <label>
+                <input type='checkbox' id='specificDates' value='specificDates'/> I have no specific dates
+            </label>
+        </div>
       </main>
     )
   }
