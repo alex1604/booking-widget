@@ -31,22 +31,23 @@ class Widget extends Component {
     }
         
     const whereToGo = !this.state.textSearch ? (
-        selectTemplate(this.props.destinations)
+        <div>
+        {selectTemplate(this.props.destinations)}
+        <p onClick={()=>this.setState({textSearch: !this.state.textSearch})}>Click here for free text search</p>
+        </div>
     ) : (
-        null
+        <div>
+        <input type="text" placeholder="Area, landmark or property" style={{height: '50px', width: '90%'}}/>
+        <p onClick={()=>this.setState({textSearch: !this.state.textSearch})}>Click here for free text search</p>
+        </div>
     )
-    const accomodation = !this.state.textSearch ? (
-        selectTemplate(this.props.accomodations)
-    ) : (
-        null
-    )
-    const checkInCheckOut = !this.state.textSearch ? (
+    const accomodation =(selectTemplate(this.props.accomodations))
+
+    const checkInCheckOut = (
         <div>
         <input type='date'/>
         <input type='date'/>
         </div>
-    ) : (
-        null
     )
     return (
       <main>
