@@ -15,12 +15,13 @@ takes a Number parameter to
 specify number of mock products
 to add to database: */
 
-const generateData = require('./mockData').generateData;
+//const generateData = require('./mockData').generateData;
 
 server.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET")
     res.header("Access-Control-Allow-Headers", "Origin, Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept");
+    res.send({code: 400, status: 'OK', message: 'Server is reachable and returned OK.'})
     next();
 });
 
