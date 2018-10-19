@@ -10,6 +10,7 @@ import SelectTemplate from './Select.js'
 //import { Modal , Button } from 'semantic-ui-react'
 
 const defaultStyle = { height: '50px', width: '90%' }
+const header = `SEARCH & BOOK`
 
 class Widget extends Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class Widget extends Component {
     const whereToGo = !this.state.textSearch ? (
       selectTemplate(this.props.destinations, 'currentDestination', this.props.registerLocation)
     ) : (
-        <FreeSearch type='text' placeholder='Area, landmark or property' style={defaultStyle} />
+        <FreeSearch className='item' type='text' placeholder='Area, landmark or property' style={defaultStyle} />
       )
     const showOrHideFreeSearch = !this.state.textSearch ? (
       <p id='hideSearch' onClick={() => this.setState({ textSearch: !this.state.textSearch })}>Click here for free text search</p>
@@ -88,10 +89,12 @@ class Widget extends Component {
         <p id='hideSearch' onClick={() => this.setState({ textSearch: !this.state.textSearch })}>Hide text search</p>
       )
 
-    const accomodation = (selectTemplate(this.props.accomodations, 'currentAccomodation', this.props.registerAccomodation))
+    const accomodation = selectTemplate(this.props.accomodations, 'currentAccomodation', this.props.registerAccomodation)
     const selectGuests = selectTemplate(this.props.destinations, 'guests', this.props.registerLocation)
 
     const checkin = (
+      <div className='checkdate item'>
+        <p>Check in:</p>
       <Date
         disabled={this.state.datepickerDisabled}
         min={this.props.minCheckin}
@@ -100,9 +103,12 @@ class Widget extends Component {
         placeholder={this.props.date}
         date={this.state.from}
         icon='calendar alternate outline'
-        handleChange={this.handleChange} />)
+        handleChange={this.handleChange} />
+      </div>)
 
     const checkout = (
+      <div className='checkdate item'>
+        <p className='checkdate'>Check out:</p>
       <Date
         disabled={this.state.datepickerDisabled}
         min={this.state.minCheckout}
@@ -111,7 +117,8 @@ class Widget extends Component {
         date={this.state.until}
         icon='calendar alternate outline'
         //value={this.props.date} 
-        handleChange={this.handleChange} />)
+        handleChange={this.handleChange} />
+        </div>)
 
     const checkInCheckOut = (
       <div id='datepicker'>
@@ -128,11 +135,14 @@ class Widget extends Component {
           <div className='tab'>CAR</div>
         </div>
         <div id='tabBox'>
+          <h3>{header}</h3>
+          <p className='alignLeft'>Where to go:</p>
           {whereToGo}
           {showOrHideFreeSearch}
+          <p className='alignLeft'>Type of accomodation:</p>
           {accomodation}
           {checkInCheckOut}
-          <label id='specificDates'>
+          <label id='specificDates' className='item'>
             <input type='checkbox' value='specificDates' onChange={this.noDates}/> I have no specific dates
           </label>
           {selectGuests}

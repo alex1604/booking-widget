@@ -16,7 +16,7 @@ class SelectTemplate extends Component {
             style={this.props.style}
             defaultValue={this.props.options[0].value} 
             onChange={this.props.onChange}
-            className='ui dropdown icon'>
+            className='ui dropdown icon item'>
             {this.props.options.map(op => <option key={op.key} value={op.value}>{op.text}</option>)}
           </select>
         )
