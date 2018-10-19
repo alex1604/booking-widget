@@ -1,21 +1,91 @@
 main{
     display: flex !important;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
     height: 99vh;
     width: 95%;
+    color: white;
+}
+#tabs{
+    height: 7%;
+    min-width: 400px;
+    width: 30%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    color: black;
+    padding: 0 20px;
+}
+.tab{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(216, 214, 214);
+    color: rgb(51, 50, 50);
+    font-weight: bold;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0 10px;
+    font-size: 12px;
+    user-select: none;
+}
+.tab:hover{
+    cursor:pointer;
+}
+.active{
+    background-color: #5c6bbb;
+    color: white;
 }
 #tabBox{
+    background-color: #5c6bbb;
     height: 60%;
     min-width: 400px;
     width: 30%;
-    max-width: 600px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: flex-start;
+    align-items: center;
+    border-radius: 2%;
+}
+#hideSearch{
+    color: rgb(73, 227, 247);
+    align-self: flex-start;
+    margin-left:6%;
+    user-select: none;
 }
 #hideSearch:hover{
     cursor: pointer;
+}
+#specificDates{
+    align-self: flex-start;
+    margin-left:6%;
+    user-select: none;
+}
+#datepicker{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#submitSearch{
+    background-color: #e470bf;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
+    outline: none;
+    border: none;
+    user-select: none;
+}
+#submitSearch:hover {
+    cursor: pointer;
+}
+#submitSearch:active{
+    border: 1px solid gray;
 }

@@ -22,7 +22,8 @@ class Date extends Component {
             value={this.props.date}
             icon={this.props.icon}
             popupPosition='bottom right'
-            onChange={this.props.handleChange} />
+            onChange={this.props.handleChange}
+            style={{width: '77%'}}/>
         //<Input icon={this.props.icon} placeholder={this.props.placeholder} type={this.props.date}/>
         )
 }

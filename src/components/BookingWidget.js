@@ -9,6 +9,8 @@ import SelectTemplate from './Select.js'
 
 //import { Modal , Button } from 'semantic-ui-react'
 
+const defaultStyle = { height: '50px', width: '90%' }
+
 class Widget extends Component {
   constructor(props) {
     super(props);
@@ -23,18 +25,42 @@ class Widget extends Component {
   componentDidMount() {
     // TO DO
   }
+  activeTab = e => {
+    let listOfTabs = document.getElementsByClassName('tab');
+    for (let i = 0; i < listOfTabs.length; i++) {
+      listOfTabs[i].classList.remove('active')
+    }
+    e.target.classList.add('active');
+  }
+  newDate = (key, value) => {
+    this.setState({
+      [`${key}`] : value
+    }, ()=> this.props.update(key, value))
+
+  }
   handleChange = (event, { name, value }) => {
-    let calculateNewMaxCheckin = name => {
-      if (name === 'secondDate'){
-      let date = new Date(value).getDate();
-      let month = new Date(value).getMonth() + 1;
-      let year = new Date(value).getFullYear();
-      let maxCheckin = `${date-1}/${month}/${year}`
-      this.setState({maxCheckin: maxCheckin})
+    let processDate = (value) => {
+      var parts = value.split('-');;
+      return {
+        date: Number(parts[0]),
+        month: Number(parts[1]),
+        year: Number(parts[2])
       }
     }
-    this.props.update(name, value)
-    calculateNewMaxCheckin()
+    let calculateNewMaxCheckin = (name, value) => {
+      if (name === 'secondDate') {
+        let date = processDate(value)
+        console.log(date)
+        let maxCheckin = `${date.date - 1}/${date.month}/${date.year}`
+        this.setState({ maxCheckin: maxCheckin })
+      } else if (name === 'date') {
+        let date = processDate(value)
+        let minCheckout = `${date.date + 1}/${date.month}/${date.year}`
+        this.setState({ minCheckout: minCheckout }, ()=>console.log(this.state))
+      }
+    }
+    this.newDate(name,value)
+    calculateNewMaxCheckin(name, value)
   }
   render() {
     // TO DO
@@ -43,14 +69,14 @@ class Widget extends Component {
         name={name}
         options={options}
         onChange={onChange}
-        style={{ height: '50px', width: '90%' }}
+        style={defaultStyle}
       />)
     }
 
     const whereToGo = !this.state.textSearch ? (
       selectTemplate(this.props.destinations, 'currentDestination', this.props.registerLocation)
     ) : (
-        <FreeSearch type='text' placeholder='Area, landmark or property' style={{ height: '50px', width: '90%' }} />
+        <FreeSearch type='text' placeholder='Area, landmark or property' style={defaultStyle} />
       )
     const showOrHideFreeSearch = !this.state.textSearch ? (
       <p id='hideSearch' onClick={() => this.setState({ textSearch: !this.state.textSearch })}>Click here for free text search</p>
@@ -59,6 +85,8 @@ class Widget extends Component {
       )
 
     const accomodation = (selectTemplate(this.props.accomodations, 'currentAccomodation', this.props.registerAccomodation))
+    const selectGuests = selectTemplate(this.props.destinations, 'guests', this.props.registerLocation)
+
     const checkin = (
       <Date
         min={this.props.minCheckin}
@@ -71,7 +99,7 @@ class Widget extends Component {
 
     const checkout = (
       <Date
-        min={this.props.minCheckout}
+        min={this.state.minCheckout}
         name='secondDate'
         placeholder={this.props.secondDate}
         date={this.state.until}
@@ -80,21 +108,29 @@ class Widget extends Component {
         handleChange={this.handleChange} />)
 
     const checkInCheckOut = (
-      <div>
+      <div id='datepicker'>
         {checkin}
         {checkout}
       </div>
     )
     return (
       <main>
+        <div id='tabs' onClick={this.activeTab}>
+          <div className='tab active'>ACCOMODATION</div>
+          <div className='tab'>ACTIVITIES</div>
+          <div className='tab'>EVENTS</div>
+          <div className='tab'>CAR</div>
+        </div>
         <div id='tabBox'>
           {whereToGo}
           {showOrHideFreeSearch}
           {accomodation}
           {checkInCheckOut}
-          <label>
-            <input type='checkbox' id='specificDates' value='specificDates' /> I have no specific dates
-            </label>
+          <label id='specificDates'>
+            <input type='checkbox' value='specificDates' /> I have no specific dates
+          </label>
+          {selectGuests}
+          <button id='submitSearch' type='submit' style={defaultStyle}>Search</button>
         </div>
       </main>
     )
