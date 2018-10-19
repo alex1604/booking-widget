@@ -15,6 +15,7 @@ class Date extends Component {
         return (
             <DateInput
             closable
+            disabled={this.props.disabled}
             maxDate={this.props.max}
             minDate={this.props.min}
             name={this.props.name}

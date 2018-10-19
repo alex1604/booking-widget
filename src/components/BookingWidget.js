@@ -18,8 +18,8 @@ class Widget extends Component {
       textSearch: false,
       date: this.props.date,
       secondDate: this.props.secondDate,
-      maxCheckin: this.props.maxCheckin
-      // TO DO
+      maxCheckin: this.props.maxCheckin,
+      datepickerDisabled: false
     }
   }
   componentDidMount() {
@@ -31,6 +31,10 @@ class Widget extends Component {
       listOfTabs[i].classList.remove('active')
     }
     e.target.classList.add('active');
+  }
+  noDates = e => {
+    if (e.target.checked === true) this.setState({datepickerDisabled: true}) 
+    else {this.setState({datepickerDisabled: false})}
   }
   newDate = (key, value) => {
     this.setState({
@@ -89,6 +93,7 @@ class Widget extends Component {
 
     const checkin = (
       <Date
+        disabled={this.state.datepickerDisabled}
         min={this.props.minCheckin}
         max={this.state.maxCheckin}
         name='date'
@@ -99,6 +104,7 @@ class Widget extends Component {
 
     const checkout = (
       <Date
+        disabled={this.state.datepickerDisabled}
         min={this.state.minCheckout}
         name='secondDate'
         placeholder={this.props.secondDate}
@@ -127,7 +133,7 @@ class Widget extends Component {
           {accomodation}
           {checkInCheckOut}
           <label id='specificDates'>
-            <input type='checkbox' value='specificDates' /> I have no specific dates
+            <input type='checkbox' value='specificDates' onChange={this.noDates}/> I have no specific dates
           </label>
           {selectGuests}
           <button id='submitSearch' type='submit' style={defaultStyle}>Search</button>
