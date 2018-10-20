@@ -25,13 +25,13 @@ class Widget extends Component {
   componentDidMount() {
     
   }
-  activeTab = e => {
+  activeTab = name => {
     let listOfTabs = document.getElementsByClassName('tab');
     for (let i = 0; i < listOfTabs.length; i++) {
       listOfTabs[i].classList.remove('active')
     }
-    e.target.classList.add('active');
-    this.setState({currentTab: e.target.name}, ()=>console.log(this.state))
+    document.getElementsByName(name)[0].classList.add('active');
+    this.setState({currentTab: name}, ()=>console.log(this.state))
   }
   noDates = e => {
     if (e.target.checked === true) this.setState({datepickerDisabled: true}) 
@@ -107,10 +107,10 @@ class Widget extends Component {
     return (
       <main>
         <div id='tabs'>
-          <div onClick={this.activeTab} className='tab active hoverMe' name='accomodation'>ACCOMODATION</div>
-          <div onClick={this.activeTab} className='tab hoverMe' name='activities'>ACTIVITIES</div>
-          <div onClick={this.activeTab} className='tab hoverMe' name='events'>EVENTS</div>
-          <div onClick={this.activeTab} className='tab hoverMe' name='car'>CAR</div>
+          <div onClick={()=>this.activeTab('accomodation')} className='tab active hoverMe' name='accomodation'>ACCOMODATION</div>
+          <div onClick={()=>this.activeTab('activities')} className='tab hoverMe' name='activities'>ACTIVITIES</div>
+          <div onClick={()=>this.activeTab('events')} className='tab hoverMe' name='events'>EVENTS</div>
+          <div onClick={()=>this.activeTab('car')} className='tab hoverMe' name='car'>CAR</div>
         </div>
         {whichTab}
       </main>

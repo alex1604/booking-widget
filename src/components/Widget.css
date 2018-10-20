@@ -133,3 +133,10 @@ h3{
     justify-content: space-around;
     align-items: center;
 }
+#addRoomAddon{
+    color: #51A4F7;
+    font-weight: bold;
+}
+#addRoomAddon:hover{
+    color: #e470bf;
+}

@@ -70,15 +70,15 @@ class SelectTemplate extends Component {
     }
     render() {
         const addRoom = (
-            <div onClick={this.addExtraRoom} className='hoverMe'>
-                <Icon name='plus square' />
+            <div id='addRoomAddon' onClick={this.addExtraRoom} className='hoverMe'>
+                <Icon name='plus square' color='blue' />
                 Add room
             </div>
         )
         const submitAddon = (
-            <div id='submitAddon'>
-                <Button color='grey' onClick={this.cancel}>Cancel</Button>
-                <Button color='pink' onClick={this.paramsSaved}>Done</Button>
+            <div id='submitAddon' style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginTop:'10px'}}>
+                <Button style={{backgroundColor: '#E1E3E5', color: 'gray', borderRadius: '0px'}} onClick={this.cancel}>Cancel</Button>
+                <Button color='pink' onClick={this.newValues} style={{ borderRadius: '0px'}}>Done</Button>
             </div>
         )
         return (
