@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Input } from 'semantic-ui-react'
+import './Widget.css'
 
 class FreeSearch extends Component {
     constructor(props){
@@ -31,7 +32,7 @@ class FreeSearch extends Component {
             onKeyUp={this.checkOnKeyUp}/>
         )
         return (
-            <div style={this.props.style}>
+            <div style={this.props.style} className={this.props.className}>
             {inputSearch}
             </div>
         )

@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import { DateInput } from 'semantic-ui-calendar-react';
-import moment from 'moment';
- 
-moment.locale('se');
 
 class Date extends Component {
     constructor(props){
@@ -24,6 +21,7 @@ class Date extends Component {
             icon={this.props.icon}
             popupPosition='bottom right'
             onChange={this.props.handleChange}
+            className='datepicker'
             style={{width: '77%'}}/>
         //<Input icon={this.props.icon} placeholder={this.props.placeholder} type={this.props.date}/>
         )

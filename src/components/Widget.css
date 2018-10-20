@@ -6,6 +6,7 @@ main{
     height: 99vh;
     width: 95%;
     color: white;
+    font-weight: bold;
 }
 #tabs{
     height: 7%;
@@ -28,14 +29,30 @@ main{
     background-color: rgb(216, 214, 214);
     color: rgb(51, 50, 50);
     font-weight: bold;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     padding: 0 10px;
     font-size: 12px;
     user-select: none;
 }
-.tab:hover{
-    cursor:pointer;
+select{
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    padding: 0 10px;
+    /* Some code I found on Codepen: https://codepen.io/vkjgr/pen/VYMeXp */
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(1em + 7px),
+        calc(100% - 15px) calc(1em + 7px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
 }
 .active{
     background-color: #5c6bbb;
@@ -44,16 +61,19 @@ main{
 .item{
     margin-bottom: 10px;
 }
-#tabBox{
+input:hover, select:hover, .hoverMe:hover{
+    cursor: pointer;
+}
+.tabContent{
     background-color: #5c6bbb;
-    height: 60%;
+    height: 70%;
     min-width: 400px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 2%;
+    border-radius: 5px;
     padding: 15px 0;
 }
 #hideSearch{
@@ -61,9 +81,6 @@ main{
     align-self: flex-start;
     margin-left:6%;
     user-select: none;
-}
-#hideSearch:hover{
-    cursor: pointer;
 }
 #specificDates{
     align-self: flex-start;
@@ -86,11 +103,12 @@ main{
     border: none;
     user-select: none;
 }
-#submitSearch:hover {
-    cursor: pointer;
-}
 #submitSearch:active{
     border: 1px solid gray;
+}
+.mini{
+    font-size:10px;
+    margin-left:12%;
 }
 .alignLeft{
     align-self: flex-start;
@@ -108,4 +126,10 @@ main{
 h3{
     font-size: 30px !important;
     font-weight: bold;
+}
+.room{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }

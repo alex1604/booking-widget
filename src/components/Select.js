@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Icon } from'semantic-ui-react'
+import './Widget.css'
 
 class SelectTemplate extends Component {
     constructor(props){
@@ -10,13 +12,11 @@ class SelectTemplate extends Component {
     render() {
         return (
             <select
-            compact='true' 
-            name={this.props.name} 
-            options={this.props.options} 
+            name={this.props.name}
             style={this.props.style}
             defaultValue={this.props.options[0].value} 
             onChange={this.props.onChange}
-            className='ui dropdown icon item'>
+            className='ui compact selection caret down icon item'>
             {this.props.options.map(op => <option key={op.key} value={op.value}>{op.text}</option>)}
           </select>
         )

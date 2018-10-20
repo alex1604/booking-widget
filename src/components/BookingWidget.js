@@ -2,15 +2,11 @@ import React, { Component } from 'react'
 import fetch from 'isomorphic-fetch'
 import './Widget.css'
 import 'semantic-ui-react'
-import { Input, Icon } from 'semantic-ui-react'
-import Date from './Date.js'
-import FreeSearch from './FreeTextBar.js'
-import SelectTemplate from './Select.js'
+import Accomodation from './Accomodation.js'
+import EmptyTab from './EmptyTab'
 
 //import { Modal , Button } from 'semantic-ui-react'
 
-const defaultStyle = { height: '50px', width: '90%' }
-const header = `SEARCH & BOOK`
 
 class Widget extends Component {
   constructor(props) {
@@ -20,11 +16,14 @@ class Widget extends Component {
       date: this.props.date,
       secondDate: this.props.secondDate,
       maxCheckin: this.props.maxCheckin,
-      datepickerDisabled: false
+      minCheckout: this.props.minCheckout,
+      minCheckin: this.props.minCheckin,
+      datepickerDisabled: false,
+      currentTab: 'accomodation'
     }
   }
   componentDidMount() {
-    // TO DO
+    
   }
   activeTab = e => {
     let listOfTabs = document.getElementsByClassName('tab');
@@ -32,6 +31,7 @@ class Widget extends Component {
       listOfTabs[i].classList.remove('active')
     }
     e.target.classList.add('active');
+    this.setState({currentTab: e.target.name}, ()=>console.log(this.state))
   }
   noDates = e => {
     if (e.target.checked === true) this.setState({datepickerDisabled: true}) 
@@ -41,7 +41,6 @@ class Widget extends Component {
     this.setState({
       [`${key}`] : value
     }, ()=> this.props.update(key, value))
-
   }
   handleChange = (event, { name, value }) => {
     let processDate = (value) => {
@@ -53,15 +52,26 @@ class Widget extends Component {
       }
     }
     let calculateNewMaxCheckin = (name, value) => {
+      let newSecondDate;
       if (name === 'secondDate') {
         let date = processDate(value)
         console.log(date)
         let maxCheckin = `${date.date - 1}/${date.month}/${date.year}`
         this.setState({ maxCheckin: maxCheckin })
+        this.props.getDay('weekDayOne', value)
       } else if (name === 'date') {
         let date = processDate(value)
+        let secondDate = processDate(this.props.secondDate);
+        if (date.month >= secondDate.month && date.date >= secondDate.date && date.year >= secondDate.year){
+          newSecondDate = `${date.date + 1}/${date.month}/${date.year}`
+          this.newDate('secondDate', newSecondDate);
+          this.setState({ minCheckout: newSecondDate}, console.log('new secondate:', this.state))
+          this.props.getDay('weekDayTwo', value)
+        } else {
         let minCheckout = `${date.date + 1}/${date.month}/${date.year}`
-        this.setState({ minCheckout: minCheckout }, ()=>console.log(this.state))
+        this.setState({ minCheckout: minCheckout})
+        this.props.getDay('weekDayTwo', value)
+        }
       }
     }
     this.newDate(name,value)
@@ -69,85 +79,40 @@ class Widget extends Component {
   }
   render() {
     // TO DO
-    const selectTemplate = (options, name, onChange) => {
-      return (<SelectTemplate
-        name={name}
-        options={options}
-        onChange={onChange}
-        style={defaultStyle}
-      />)
-    }
-
-    const whereToGo = !this.state.textSearch ? (
-      selectTemplate(this.props.destinations, 'currentDestination', this.props.registerLocation)
+    const whichTab = this.state.currentTab == 'accomodation' ? (
+      <Accomodation 
+      noDates={this.noDates}
+      newDate={this.newDate}
+      handleChange={this.handleChange}
+      options={this.props.options}
+      accomodations={this.props.accomodations}
+      destinations={this.props.destinations}
+      registerLocation={this.props.registerLocation}
+      registerAccomodation={this.props.registerAccomodation}
+      date={this.props.date}
+      secondDate={this.props.secondDate}
+      minCheckin={this.state.minCheckin}
+      minCheckout={this.state.minCheckout}
+      maxCheckin={this.state.maxCheckin}
+      datepickerDisabled={this.state.datepickerDisabled}
+      weekDayOne={this.props.weekDayOne}
+      weekDayTwo={this.props.weekDayTwo}
+      difference={this.props.difference}
+      registerSearchParams={this.props.registerSearchParams}
+      />
     ) : (
-        <FreeSearch className='item' type='text' placeholder='Area, landmark or property' style={defaultStyle} />
-      )
-    const showOrHideFreeSearch = !this.state.textSearch ? (
-      <p id='hideSearch' onClick={() => this.setState({ textSearch: !this.state.textSearch })}>Click here for free text search</p>
-    ) : (
-        <p id='hideSearch' onClick={() => this.setState({ textSearch: !this.state.textSearch })}>Hide text search</p>
-      )
-
-    const accomodation = selectTemplate(this.props.accomodations, 'currentAccomodation', this.props.registerAccomodation)
-    const selectGuests = selectTemplate(this.props.destinations, 'guests', this.props.registerLocation)
-
-    const checkin = (
-      <div className='checkdate item'>
-        <p>Check in:</p>
-      <Date
-        disabled={this.state.datepickerDisabled}
-        min={this.props.minCheckin}
-        max={this.state.maxCheckin}
-        name='date'
-        placeholder={this.props.date}
-        date={this.state.from}
-        icon='calendar alternate outline'
-        handleChange={this.handleChange} />
-      </div>)
-
-    const checkout = (
-      <div className='checkdate item'>
-        <p className='checkdate'>Check out:</p>
-      <Date
-        disabled={this.state.datepickerDisabled}
-        min={this.state.minCheckout}
-        name='secondDate'
-        placeholder={this.props.secondDate}
-        date={this.state.until}
-        icon='calendar alternate outline'
-        //value={this.props.date} 
-        handleChange={this.handleChange} />
-        </div>)
-
-    const checkInCheckOut = (
-      <div id='datepicker'>
-        {checkin}
-        {checkout}
-      </div>
+      <EmptyTab/>
     )
+    
     return (
       <main>
-        <div id='tabs' onClick={this.activeTab}>
-          <div className='tab active'>ACCOMODATION</div>
-          <div className='tab'>ACTIVITIES</div>
-          <div className='tab'>EVENTS</div>
-          <div className='tab'>CAR</div>
+        <div id='tabs'>
+          <div onClick={this.activeTab} className='tab active hoverMe' name='accomodation'>ACCOMODATION</div>
+          <div onClick={this.activeTab} className='tab hoverMe' name='activities'>ACTIVITIES</div>
+          <div onClick={this.activeTab} className='tab hoverMe' name='events'>EVENTS</div>
+          <div onClick={this.activeTab} className='tab hoverMe' name='car'>CAR</div>
         </div>
-        <div id='tabBox'>
-          <h3>{header}</h3>
-          <p className='alignLeft'>Where to go:</p>
-          {whereToGo}
-          {showOrHideFreeSearch}
-          <p className='alignLeft'>Type of accomodation:</p>
-          {accomodation}
-          {checkInCheckOut}
-          <label id='specificDates' className='item'>
-            <input type='checkbox' value='specificDates' onChange={this.noDates}/> I have no specific dates
-          </label>
-          {selectGuests}
-          <button id='submitSearch' type='submit' style={defaultStyle}>Search</button>
-        </div>
+        {whichTab}
       </main>
     )
   }
