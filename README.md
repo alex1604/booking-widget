@@ -8,14 +8,15 @@ To correctly run the widget, follow these steps ( I assume you have already the 
 Open a terminal/bash window on the folder where the project is saved.
 
 #2
-Run the command: yarn                                 // this will all the necessary to dependencies to run the project
+Run the command: yarn                                 // this will install all the necessary dependencies to run the project
+or the command: npm install
 
 #3
-Run the command: node server.js                       // this will run a local server on the port 3000
+Run the command: node server.js                       // this will run a local server on the port 3000 (make sure the server runs on port                                                       3000 or it won't work ! )
 
 #4
 Open a new terminal/bash window on the folder
-and run the command: yarn start                       // this will run the React app on any free port
+and run the command: yarn start                       // this will run the React app on any free port (usually 3001)
 
 (if asked if you want to run the app on a port
 other than port 3000 write 'y' and then click
