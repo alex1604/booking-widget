@@ -140,3 +140,8 @@ h3{
 #addRoomAddon:hover{
     color: #e470bf;
 }
+.ui .input{
+    width: 100%;
+    height: 50px;
+    border-radius: 0 !important;
+}
