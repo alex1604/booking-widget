@@ -2,14 +2,14 @@
 
 This booking-widget is build as a React app running in conjunction with a local node.js / express.js server acting as an API
 
-To correctly run the widget, follow these steps ( I assume you have already the package manager 'yarn' installed as well as node.js installed as a global dependency )
+To correctly run the widget, follow these steps ( I assume you have already the package manager 'npm' installed as well as node.js installed as a global dependency )
 
 #1
 Open a terminal/bash window on the folder where the project is saved.
 
 #2
-Run the command: yarn                                 // this will install all the necessary dependencies to run the project
-or the command: npm install
+Run the command: yarn                               // this will install all the necessary dependencies to run the project
+or the equivalent npm command
 
 #3
 Run the command: node server.js                       // this will run a local server on the port 3000 (make sure the server runs on port                                                       3000 or it won't work ! )
