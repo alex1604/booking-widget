@@ -91,7 +91,7 @@ class Widget extends Component {
       registerAccomodation={this.props.registerAccomodation}
       date={this.props.date}
       secondDate={this.props.secondDate}
-      minCheckin={this.state.minCheckin}
+      minCheckin={this.props.minCheckin}
       minCheckout={this.state.minCheckout}
       maxCheckin={this.state.maxCheckin}
       datepickerDisabled={this.state.datepickerDisabled}
