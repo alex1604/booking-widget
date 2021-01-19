@@ -1,4 +1,4 @@
-# codingtest
+# Booking widget sample
 
 This booking-widget is build as a React app running in conjunction with a local node.js / express.js server acting as an API
 
