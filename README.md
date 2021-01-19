@@ -8,8 +8,8 @@ To correctly run the widget, follow these steps ( I assume you have already the 
 Open a terminal/bash window on the folder where the project is saved.
 
 #2
-Run the command: yarn                               // this will install all the necessary dependencies to run the project
-or the equivalent npm command
+Run the command: *npm install*               // this will install all the necessary dependencies to run the project
+
 
 #3
 Run the command: node server.js                       // this will run a local server on the port 3000 (make sure the server runs on port                                                       3000 or it won't work ! )
