@@ -8,19 +8,19 @@ To correctly run the widget, follow these steps ( I assume you have already the 
 Open a terminal/bash window on the folder where the project is saved.
 
 #2
-Run the command: *npm install*               // this will install all the necessary dependencies to run the project
+Run **npm install**               // this will install all the necessary dependencies to run the project
 
 
 #3
-Run the command: node server.js                       // this will run a local server on the port 3000 (make sure the server runs on port                                                       3000 or it won't work ! )
+Run **node server.js**            // this will run a local server on the port 3000 (make sure the server runs on port                                                       3000 or it won't work ! )
 
 #4
 Open a new terminal/bash window on the folder
-and run the command: yarn start                       // this will run the React app on any free port (usually 3001)
+and run **npm run start**                       // this will run the React app on any free port (usually 3001)
 
 (if asked if you want to run the app on a port
-other than port 3000 write 'y' and then click
+other than port 3000 type **y** and then 
 enter)
 
 #5
-Play around and enjoy using  and looking at my test widget.
+Play around with my booking widget.
